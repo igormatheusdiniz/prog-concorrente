@@ -18,20 +18,20 @@ public class Main {
 
     public static class Server implements Runnable {
 
-        private final APIWeb idMaker;
+        private final APIWeb APIweb;
         private final String serviceId;
         private String currentServer="";
 
-        public Server(APIWeb idMaker, String serviceId) {
-            this.idMaker = idMaker;
+        public Server(APIWeb APIWeb, String serviceId) {
+            this.APIweb = APIWeb;
             this.serviceId = serviceId;
         }
 
         @Override
         public void run() {
             while(currentServer.equals("")) {
-            	this.currentServer = idMaker.reliableRequest();
-                System.err.println("ServiceId=" + this.serviceId + " requestId=" + idMaker.reliableRequest());
+            	this.currentServer = APIweb.reliableRequest();
+                System.err.println("ServiceId=" + this.serviceId + " requestId=" + APIweb.reliableRequest());
             	
             }
         }
