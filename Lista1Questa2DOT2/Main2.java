@@ -77,7 +77,7 @@ public class Main2 {
 				server2 = lock.tryLock();
 				// server3 = serverName.lock.tryLock();
 			} finally {
-				if (!(server1)) {
+				if (!(server1 && server2)) {
 					if (server1) {
 						currentServer = serverName1;
 						// unlock: Releases the lock.

@@ -39,10 +39,8 @@ public class Requester {
 		t0.start();
 		t1.start();
 		t2.start();
-
-		t0.join();
-		t1.join();
-		t2.join();
+		
+		System.out.println("print");
 
 	}
 }
