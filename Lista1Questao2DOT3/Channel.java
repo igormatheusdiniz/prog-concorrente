@@ -19,7 +19,7 @@ public class Channel {
         return this.messages.size()==0;
     }
 	
-	public String takeFisrtAnswer() {
+	public String reliableRequest() {
 		return this.messages.remove(0);
 	}
 	

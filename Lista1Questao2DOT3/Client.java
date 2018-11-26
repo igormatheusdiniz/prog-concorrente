@@ -2,7 +2,7 @@ package Lista1Questao2DOT3;
 
 public class Client {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		Channel channel = new Channel();
 		APIWeb consumerAPI = new APIWeb(channel); //Consumidor
@@ -16,6 +16,14 @@ public class Client {
 		Thread t3 = new Thread(consumerAPI, "Thread-Consumidora");
 		
 		t0.start();
+		t1.start();
+		t2.start();
+		t3.start();
+		
+		t0.join();
+		t1.join();
+		t2.join();
+		t3.join();
 		
 		
 	}

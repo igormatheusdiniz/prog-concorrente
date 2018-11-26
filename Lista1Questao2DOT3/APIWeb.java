@@ -10,7 +10,19 @@ public class APIWeb implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		while (true) {
+			synchronized (this.channel) {
+				while (this.channel.isEmpty()) {
+					try {
+						this.channel.wait();
+					} catch (InterruptedException e) {
+					}
+				}
+				String msg = this.channel.reliableRequest();
+				System.out.println("Fisrt Server: " + msg);
+				this.channel.notifyAll();
+			}
+		}
 		
 	}
 }
