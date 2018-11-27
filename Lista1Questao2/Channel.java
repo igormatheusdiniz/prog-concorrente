@@ -11,7 +11,7 @@ public class Channel {
 		this.messages = new ArrayList<>();
 	}
 
-	public void putServer(String serverName) {
+	public void putMessage(String serverName) {
 		messages.add(serverName);
 	}
 	
@@ -19,7 +19,7 @@ public class Channel {
         return this.messages.size()==0;
     }
 	
-	public String reliableRequest() {
+	public String getMessage() {
 		return this.messages.get(0);
 	}
 	

@@ -1,5 +1,6 @@
 package Lista1Questao2;
 
+
 import java.util.Random;
 
 public class Server implements Runnable {
@@ -7,9 +8,8 @@ public class Server implements Runnable {
 	private String serverName;
 	private Channel channel;
 
-	public Server(String serverName, Channel channel) {
+	public Server(String serverName) {
 		this.serverName = serverName;
-		this.channel = channel;
 	}
 
 	@Override
@@ -20,22 +20,35 @@ public class Server implements Runnable {
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}	
-		synchronized (this.channel) {
-				while (!this.channel.isEmpty()) {
-					try {
-
-						this.channel.wait();
-					} catch (InterruptedException e) {
-					}
-				}
-				//int message = new Random().nextInt(11);
-				this.channel.putServer(this.serverName);
-				System.out.println("Server produced: " + this.serverName);
-
-				this.channel.notifyAll();
-			}
 		}
+		synchronized (this.channel) {
+			while (!this.channel.isEmpty()) {
+				try {
+
+					this.channel.wait();
+				} catch (InterruptedException e) {
+				}
+			}
+			// int message = new Random().nextInt(11);
+			this.channel.putMessage(this.serverName);
+			System.out.println("Server produced: " + this.serverName);
+
+			this.channel.notifyAll();
+		}
+	}
+
+	public String getServerName() {
+		return serverName;
+	}
+
+	public void setServerName(String serverName) {
+		this.serverName = serverName;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;		
+	}
+	
 	
 
 }
