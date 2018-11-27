@@ -1,4 +1,4 @@
-package ListaQuestao6;
+package Lista1Questao6;
 
 public class Consumidora implements Runnable {
 	
