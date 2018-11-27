@@ -1,4 +1,4 @@
-package Lista1Questao2DOT3;
+package Lista1Questao2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Channel {
     }
 	
 	public String reliableRequest() {
-		return this.messages.remove(0);
+		return this.messages.get(0);
 	}
 	
 }

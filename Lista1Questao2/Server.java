@@ -1,4 +1,4 @@
-package Lista1Questao2DOT3;
+package Lista1Questao2;
 
 import java.util.Random;
 
@@ -14,8 +14,14 @@ public class Server implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
-			synchronized (this.channel) {
+		Random random = new Random();
+		try {
+			Thread.sleep(random.nextInt(2000));
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+		synchronized (this.channel) {
 				while (!this.channel.isEmpty()) {
 					try {
 
@@ -30,6 +36,6 @@ public class Server implements Runnable {
 				this.channel.notifyAll();
 			}
 		}
-	}
+	
 
 }

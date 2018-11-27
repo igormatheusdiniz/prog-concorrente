@@ -1,4 +1,4 @@
-package Lista1Questao2DOT3;
+package Lista1Questao2;
 
 public class APIWeb implements Runnable {
 	
@@ -10,7 +10,7 @@ public class APIWeb implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+
 			synchronized (this.channel) {
 				while (this.channel.isEmpty()) {
 					try {
@@ -24,5 +24,5 @@ public class APIWeb implements Runnable {
 			}
 		}
 		
-	}
+	
 }

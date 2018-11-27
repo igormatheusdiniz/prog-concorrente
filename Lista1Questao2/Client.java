@@ -1,4 +1,4 @@
-package Lista1Questao2DOT3;
+package Lista1Questao2;
 
 public class Client {
 	
@@ -18,13 +18,7 @@ public class Client {
 		t0.start();
 		t1.start();
 		t2.start();
-		t3.start();
-		
-		t0.join();
-		t1.join();
-		t2.join();
-		t3.join();
-		
+		t3.start();		
 		
 	}
 
