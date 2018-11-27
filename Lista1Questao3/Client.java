@@ -20,7 +20,12 @@ public class Client {
 		t0.start();
 		t1.start();
 		t2.start();
-		consumerAPI.reliableRequest();
+		String response = consumerAPI.reliableRequest();
+		System.out.println("Response:" + response);
+		t0.interrupt();
+		t1.interrupt();
+		t2.interrupt();
+		
 		
 	}
 

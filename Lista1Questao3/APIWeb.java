@@ -15,6 +15,7 @@ public class APIWeb {
 	
 	public void addServer(Server server) {
 		servers.add(server);
+		server.setChannel(this.channel);
 	}
 	
 	public String request(String serversName) {
@@ -29,21 +30,23 @@ public class APIWeb {
 	
 	
 	public String reliableRequest() {
-		for (Server server : servers) {
-			server.setChannel(channel);
-		}
-		
+
+
 		synchronized (this.channel) {
+			String msg = "";
 			while (this.channel.isEmpty()) {
 				try {
 					this.channel.wait(2000);
+					if(this.channel.isEmpty()) {
+						msg = "Timeout!!";
+						return msg;
+					}else{
+						msg = this.channel.getMessage();
+					}
 				} catch (InterruptedException e) {
-					System.out.println("TIMEOUTED");
 					e.printStackTrace();
 				}
 			}
-			String msg = this.channel.getMessage();
-			System.out.println("Fisrt Server: " + msg);
 			this.channel.notifyAll();
 			return msg;
 		}

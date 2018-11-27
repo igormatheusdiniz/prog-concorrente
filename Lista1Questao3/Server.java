@@ -16,10 +16,10 @@ public class Server implements Runnable {
 	public void run() {
 		Random random = new Random();
 		try {
-			Thread.sleep(random.nextInt(8000));
+			Thread.sleep(random.nextInt(10000));
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println(getServerName() + " KILLED");
+			return;
 		}
 		synchronized (this.channel) {
 			while (!this.channel.isEmpty()) {
