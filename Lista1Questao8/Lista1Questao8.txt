@@ -5,17 +5,28 @@ Sobre semáforos, responda as questões abaixo (consider que wait reduz o valor do
 	post(S)
 	<região não-crítica>
 
-A) com qual valor o semáforo S precisa ser criado para proteger o acesso à região crítica com exclusão mútua?
+A) Com qual valor o semáforo S precisa ser criado para proteger o acesso à região crítica com exclusão mútua?
+
+R - O semáforo precisa ser criado com valor igual a UM, pois quando uma thread entrar em uma regiao crítica e requisitar o semáforo
+decrescendo para 0, bloquerá a região e nenhuma outra thread terá acesso.
 
 B) Se o semáforo for inicializado com o valor 13, quantas threads podem acessar concorrentemente a região crítica?
 
+R - 13 threads podem acessar a região crítica concorrentemente.
+
 Processo 1 executa:				Processo 2 executa:
 while(true) {					while(true) {
-	wait(S)						wait(Q)
+	wait(S)						wait(Q) 
 	a();						b();
-	post(Q);					post(S)
+	post(Q); 					post(S) 
 
 c) O que acontece com o código assim de os semáforos são inicialiazados com: i) 1; ii) 1 e 0; iii) 0
+R - 
+	i) Os métodos a() e b() ficam executando alternadamente em loop.
+	ii)
+	iii) Situação que caracteriza um deadlock, pois processo 1 estára esperando um recurso liberado pelo processo 2, e o processo 2
+	esperando um recurso liberado pelo processo 1;
+
 
 Processo 1 executa:				Processo 2 executa:
 while(true) {					while(true) {
