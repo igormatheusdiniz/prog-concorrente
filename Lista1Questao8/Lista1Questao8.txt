@@ -1,0 +1,29 @@
+Sobre semáforos, responda as questões abaixo (consider que wait reduz o valor do semáforo e post incrementa)
+
+	wait(S)
+	<região crítica>
+	post(S)
+	<região não-crítica>
+
+A) com qual valor o semáforo S precisa ser criado para proteger o acesso à região crítica com exclusão mútua?
+
+B) Se o semáforo for inicializado com o valor 13, quantas threads podem acessar concorrentemente a região crítica?
+
+Processo 1 executa:				Processo 2 executa:
+while(true) {					while(true) {
+	wait(S)						wait(Q)
+	a();						b();
+	post(Q);					post(S)
+
+c) O que acontece com o código assim de os semáforos são inicialiazados com: i) 1; ii) 1 e 0; iii) 0
+
+Processo 1 executa:				Processo 2 executa:
+while(true) {					while(true) {
+	wait(Q);						wait(S);
+	wait(S);						wait(Q);
+	a();							b();
+	post(S);						post(Q);
+	post(Q);						post(S)
+
+D) O que acontece com o trecho de código acima se os semáforos Q e S são inicializados com 1?
+
