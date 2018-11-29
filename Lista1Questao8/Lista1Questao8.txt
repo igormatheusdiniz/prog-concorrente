@@ -16,25 +16,31 @@ R - 13 threads podem acessar a região crítica concorrentemente.
 
 Processo 1 executa:				Processo 2 executa:
 while(true) {					while(true) {
-	wait(S)						wait(Q) 
+	wait(S)						wait(Q)
 	a();						b();
 	post(Q); 					post(S) 
 
 c) O que acontece com o código assim de os semáforos são inicialiazados com: i) 1; ii) 1 e 0; iii) 0
+
 R - 
 	i) Os métodos a() e b() ficam executando alternadamente em loop.
-	ii)
+	ii)  @toDo
 	iii) Situação que caracteriza um deadlock, pois processo 1 estára esperando um recurso liberado pelo processo 2, e o processo 2
 	esperando um recurso liberado pelo processo 1;
 
 
 Processo 1 executa:				Processo 2 executa:
 while(true) {					while(true) {
-	wait(Q);						wait(S);
-	wait(S);						wait(Q);
+	wait(Q); 						wait(S); 
+	wait(S); 						wait(Q); 
 	a();							b();
-	post(S);						post(Q);
-	post(Q);						post(S)
+	post(S); 						post(Q);
+	post(Q); 						post(S)
 
 D) O que acontece com o trecho de código acima se os semáforos Q e S são inicializados com 1?
+
+R - Enquanto os processos conseguirem executar os dois waits() nos semáforos, sem perder a CPU entre eles, haverá um bom funcionamento do
+código, onde os metodos a() e b() serão executados sem uma ordem pré-definida e de forma não-concorrente. Entretanto supondo um cenário
+onde um dos processos perder a CPU entre os waits() e o outro processo tomar a CPU, haverá um deadlock, uma vez que cada processo
+esperará o recurso adquirido pelo outro processo de maneira circular.
 
