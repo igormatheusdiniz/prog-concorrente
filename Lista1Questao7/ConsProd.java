@@ -26,8 +26,21 @@ public class ConsProd implements Runnable {
 				}
 				String takenMessage = this.filterChannel.takeMessage();
 				if (this.isAlpha(takenMessage)) {
-					this.printChannel.putString(takenMessage);
-					//System.out.println("Filtred Message: " + takenMessage);
+					while (true) {
+						synchronized (this.printChannel) {
+							while (!this.printChannel.isEmpty()) {
+								try {
+
+									this.printChannel.wait();
+								} catch (InterruptedException e) {
+								}
+							}
+							this.printChannel.putString(takenMessage);
+							System.err.println("Message filtered: " + takenMessage);
+							this.printChannel.notifyAll();
+							break;
+						}
+					}
 				}
 				this.filterChannel.notifyAll();
 			}

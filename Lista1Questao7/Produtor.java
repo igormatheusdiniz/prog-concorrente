@@ -11,6 +11,16 @@ public class Produtor implements Runnable {
 		this.filterChannel = filterChannel;
 	}
 
+	public String generateRandomChars(String candidateChars, int length) {
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < length; i++) {
+			sb.append(candidateChars.charAt(random.nextInt(candidateChars.length())));
+		}
+
+		return sb.toString();
+	}
+
 	@Override
 	public void run() {
 		while (true) {
@@ -23,9 +33,7 @@ public class Produtor implements Runnable {
 					}
 				}
 
-				byte[] array = new byte[7]; // length is bounded by 7
-			    new Random().nextBytes(array);
-			    String generatedString = new String(array, Charset.forName("UTF-8"));
+				String generatedString = generateRandomChars("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", 6);
 
 				this.filterChannel.putString(generatedString);
 				System.err.println("String produced: " + generatedString);
