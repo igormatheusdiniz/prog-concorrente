@@ -24,7 +24,9 @@ c) O que acontece com o código assim de os semáforos são inicialiazados com: i) 
 
 R - 
 	i) Os métodos a() e b() ficam executando alternadamente em loop.
-	ii)  @toDo
+	ii)  Existem possíveis respostas, por exemplo caso a execuçao comece pelo processo A e ele consiga executar todo o fluxo
+	sem perder a CPU irá para o próximo fluxo do processo 2. Entretanto se antes do processo dar um post(Q) perder a CPU,
+	haverá uma situação de deadlock. 
 	iii) Situação que caracteriza um deadlock, pois processo 1 estára esperando um recurso liberado pelo processo 2, e o processo 2
 	esperando um recurso liberado pelo processo 1;
 
