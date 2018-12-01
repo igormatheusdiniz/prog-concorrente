@@ -11,18 +11,7 @@ public class Consumidor implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			synchronized (this.channel) {
-				while (this.channel.isEmpty()) {
-					try {
-						this.channel.wait();
-					} catch (InterruptedException e) {
-					}
-				}
-				int taken = this.channel.takeMessage();
-				System.err.println("value consumed: " + taken);
-				this.channel.notifyAll();
-			}
+			this.channel.takeMessage();
 		}
 	}
-
 }
