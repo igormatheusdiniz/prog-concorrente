@@ -40,8 +40,6 @@ public class Channel {
 			System.out.println("Even value: " + takenNumber);
 		}
 		this.notifyAll();
-		
-		//return takenNumber;
 	}
 	
 	public boolean isEmpty() {

@@ -24,22 +24,10 @@ public class Produtor implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			synchronized (this.filterChannel) {
-				while (!this.filterChannel.isEmpty()) {
-					try {
 
-						this.filterChannel.wait();
-					} catch (InterruptedException e) {
-					}
-				}
+			String message = this.generateRandomChars("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", 6);
+			this.filterChannel.putString(message);
 
-				String generatedString = generateRandomChars("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", 6);
-
-				this.filterChannel.putString(generatedString);
-				System.err.println("String produced: " + generatedString);
-
-				this.filterChannel.notifyAll();
-			}
 		}
 
 	}
