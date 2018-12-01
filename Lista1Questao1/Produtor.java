@@ -9,26 +9,23 @@ public class Produtor implements Runnable {
     public Produtor(Channel channel) {
         this.channel = channel;
     }
+    
+    public String generateRandomChars(String candidateChars, int length) {
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < length; i++) {
+			sb.append(candidateChars.charAt(random.nextInt(candidateChars.length())));
+		}
+
+		return sb.toString();
+	}
 
     @Override
     public void run() {
-
-        while (true) {
-            synchronized (this.channel) {
-                while (!this.channel.isEmpty()) {
-                    try {
-
-                        this.channel.wait();
-                    } catch (InterruptedException e) { }
-                }
-                while(!this.channel.isFull()) {
-                int message = new Random().nextInt(11);
-                this.channel.putMessage(message);
-                System.err.println("message produced: " + message);
-                }
-                this.channel.notifyAll();
-            }
-        }
+    	while(true) {
+    	String message = this.generateRandomChars("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", 6);
+    	this.channel.putMessage(message);
+    	}
     }
 
 }

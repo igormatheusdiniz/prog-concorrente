@@ -3,10 +3,10 @@ package Lista1Questao1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Channel implements iChannel {
+public class Channel {
 
 	private int capacidadeMax;
-	private List<Integer> messages;
+	private List<String> messages;
 	private int capacidadeAtual;
 
 	public Channel(int capacidade) {
@@ -15,34 +15,51 @@ public class Channel implements iChannel {
 		this.messages = new ArrayList<>();
 	}
 
-	public void putMessage(int message) {
+	public synchronized void putMessage(String message) {
+		while (this.isFull()) {
+			try {
+
+				this.wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		String receivedMessage = message;
+
 		if (messages.size() + 1 < this.capacidadeMax) {
-			this.capacidadeAtual = messages.size() + 1; 
+			this.capacidadeAtual = messages.size() + 1;
 			this.messages.add(message);
+			System.err.println("message produced: " + receivedMessage);
 		} else {
 			throw new IllegalArgumentException("Atingiu a capacidade Maxima, chegou a hora de consumir");
 		}
-	}
-	
-	public boolean isEmpty() {
-        return this.messages.size()==0;
-    }
-	
-	public boolean isFull() {
-		return this.capacidadeAtual==this.capacidadeMax;
+		this.notifyAll();
 	}
 
-	@Override
-	public int takeMessage() {
-		return this.messages.remove(0);
+	public boolean isEmpty() {
+		return this.messages.size() == 0;
 	}
-	
-	public void getMessages(){
+
+	public boolean isFull() {
+		return this.capacidadeAtual == this.capacidadeMax;
+	}
+
+	public synchronized  void takeMessage() {
+		while (this.isEmpty()) {
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		String taken = this.messages.remove(0);
+		System.out.println("Message consumed: " + taken);
+		this.notifyAll();
+	}
+
+	public synchronized void getMessages() {
 		for (int i = 0; i < messages.size(); i++) {
 			System.out.println(messages.get(i));
-			
+
 		}
 	}
-
 
 }
