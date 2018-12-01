@@ -50,7 +50,8 @@ public class Channel {
 			} catch (InterruptedException e) {
 			}
 		}
-		String taken = this.messages.remove(0);
+		String taken = messages.get(0);
+		this.messages.remove(0);
 		System.out.println("Message consumed: " + taken);
 		this.notifyAll();
 	}
