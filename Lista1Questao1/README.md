@@ -24,6 +24,7 @@ A seguir temos o método que chama a função de recuperar uma mensagem do channel,
 
 - E o próprio canal de intermediação, onde possui os métodos putMessage(), e getMessage(). Ambos necessitam de sincronismo com a finalidade de evitar possiveis deadlock. 
 
+
 	public synchronized void putMessage(String message) {
 		while (this.isFull()) {
 			try {
@@ -41,6 +42,7 @@ A seguir temos o método que chama a função de recuperar uma mensagem do channel,
 		}
 		this.notifyAll();
 	}
+	
 	
 		public synchronized  void takeMessage() {
 		while (this.isEmpty()) {
