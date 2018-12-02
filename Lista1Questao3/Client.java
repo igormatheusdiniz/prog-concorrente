@@ -14,9 +14,8 @@ public class Client {
 		consumerAPI.addServer(server3);		
 		
 		//CHAMAR API
-		String finalMessage = consumerAPI.reliableRequest();
+		String finalMessage = consumerAPI.reliableRequest(2000);
 		System.out.println("A API retornou: " + finalMessage);
-		
 	}
 
 }

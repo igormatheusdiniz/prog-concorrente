@@ -1,10 +1,11 @@
-package Lista1Questao3;
+package Lista1Questao4;
 
 import java.util.ArrayList;
 
 public class APIWeb {
 	
 	private ArrayList<Server> servers;
+	boolean licenseToKill = false;
 	
 	public APIWeb() {
 		servers = new ArrayList<Server>();
@@ -23,6 +24,7 @@ public class APIWeb {
 		}
 		return response;
 	}
+	
 	
 	
 	public String reliableRequest(int timeout) {
@@ -52,5 +54,31 @@ public class APIWeb {
 		return threads;
 	}
 
+	public synchronized void loopReliableRequest() {
+		while (true){
+			try {
+				this.wait(1000);
+				if(this.licenseToKill) {
+					System.out.println("BOND GIRL, KILL CONFIRMED");
+					break;
+				}
+				String taken = reliableRequest(0);
+				System.out.println(taken);
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+			
+	}
+
+	public boolean isLicenseToKill() {
+		return licenseToKill;
+	}
+
+	public void setLicenseToKill(boolean licenseToKill) {
+		this.licenseToKill = licenseToKill;
+	}
+	
+	
 	
 }

@@ -1,4 +1,4 @@
-package Lista1Questao2;
+package Lista1Questao4;
 
 
 import java.util.Random;
@@ -16,7 +16,7 @@ public class Server implements Runnable {
 	public void run() {
 		Random random = new Random();
 		try {
-			Thread.sleep(random.nextInt(2000));
+			Thread.sleep(random.nextInt(1000));
 		} catch (InterruptedException e1) {
 			System.out.println(getServerName() + " KILLED");
 			return;

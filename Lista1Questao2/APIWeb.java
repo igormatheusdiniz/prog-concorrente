@@ -5,11 +5,9 @@ import java.util.ArrayList;
 
 public class APIWeb {
 	
-	private Channel channel;
 	private ArrayList<Server> servers;
 	
 	public APIWeb() {
-		this.channel = new Channel(3);
 		servers = new ArrayList<Server>();
 	}
 	
@@ -29,20 +27,30 @@ public class APIWeb {
 	
 	
 	public String reliableRequest() {
-		for (Server server : servers) {
-			server.setChannel(this.channel);
-			Thread thread = new Thread(server);
-			thread.start();
-		}
-		String msg = this.channel.takeMessage();
+		Channel channel = new Channel(servers.size());
+		ArrayList<Thread> threads = createThreads(channel);
+		String msg = channel.takeMessage();
 		System.out.println("Fisrt Server: " + msg);
+		cancelThreads(threads);
 		return msg;
 		
 	}
 
-	private void cancelServers() {
+	private void cancelThreads(ArrayList<Thread> threads) {
+		for (Thread thread : threads) {
+			thread.interrupt();
+		}
+	}
 
-		
+	private ArrayList<Thread> createThreads(Channel channel) {
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+		for (Server server : servers) {
+			server.setChannel(channel);
+			Thread thread = new Thread(server);
+			threads.add(thread);
+			thread.start();
+		}
+		return threads;
 	}
 	
 }

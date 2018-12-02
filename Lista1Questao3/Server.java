@@ -18,7 +18,8 @@ public class Server implements Runnable {
 		try {
 			Thread.sleep(random.nextInt(10000));
 		} catch (InterruptedException e1) {
-			System.out.println(e1.getMessage());
+			System.out.println(getServerName() + " KILLED");
+			return;
 		}
 		this.channel.putMessage(this.serverName);
 		System.out.println("Server produced: " + this.serverName);
