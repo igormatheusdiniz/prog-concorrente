@@ -1,8 +1,8 @@
-Nesta quest„o temos um tÌpico caso Produtor/Consumidor, alÈm disto adotamos um canal em comum como meio de comunicaÁ„o entre os dois lados. Desta forma temos:
+Nesta quest√£o temos um t√≠pico caso Produtor/Consumidor, al√©m disto adotamos um canal em comum como meio de comunica√ß√£o entre os dois lados. Desta forma temos:
 
-- AlguÈm que produzir· as mensagens e as colocar· neste canal em comum, e enquanto o mesmo n„o estiver cheio poder· produzir mensagens e deposita-l·s dentro deste canal;
+- Algu√©m que produzir√° as mensagens e as colocar√° neste canal em comum, e enquanto o mesmo n√£o estiver cheio poder√° produzir mensagens e deposita-l√°s dentro deste canal;
 
-A seguir temos o mÈtodo que chama a funÁ„o de inserÁ„o do Channel, onde ocorre as verificaÁıes necess·rias para que ocorram a inserÁ„o
+A seguir temos o m√©todo que chama a fun√ß√£o de inser√ß√£o do Channel, onde ocorre as verifica√ß√µes necess√°rias para que ocorram a inser√ß√£o
 
     public void run() {
     	while(true) {
@@ -12,9 +12,9 @@ A seguir temos o mÈtodo que chama a funÁ„o de inserÁ„o do Channel, onde ocorre a
     }
     
 
-- AlguÈm que consumir· as mensagens deste canal, quando receber notificaÁ„o de que ja possui informaÁ„o dentro do mesmo
+- Algu√©m que consumir√° as mensagens deste canal, quando receber notifica√ß√£o de que ja possui informa√ß√£o dentro do mesmo
 
-A seguir temos o mÈtodo que chama a funÁ„o de recuperar uma mensagem do channel, onde ocorre as verificaÁıes necess·rias para que ocorram a recuperaÁ„o
+A seguir temos o m√©todo que chama a fun√ß√£o de recuperar uma mensagem do channel, onde ocorre as verifica√ß√µes necess√°rias para que ocorram a recupera√ß√£o
 
 	public void run() {
 		while (true) {
@@ -22,10 +22,9 @@ A seguir temos o mÈtodo que chama a funÁ„o de recuperar uma mensagem do channel,
 		}
 	}
 
-- E o prÛprio canal de intermediaÁ„o, onde possui os mÈtodos putMessage(), e getMessage(). Ambos necessitam de sincronismo com a finalidade de evitar possiveis deadlock. 
+- E o pr√≥prio canal de intermedia√ß√£o, onde possui os m√©todos putMessage(), e getMessage(). Ambos necessitam de sincronismo com a finalidade de evitar possiveis deadlock. 
 
-
-	public synchronized void putMessage(String message) {
+		public synchronized void putMessage(String message) {
 		while (this.isFull()) {
 			try {
 				this.wait();
@@ -40,8 +39,7 @@ A seguir temos o mÈtodo que chama a funÁ„o de recuperar uma mensagem do channel,
 		} else {
 			throw new IllegalArgumentException("Atingiu a capacidade Maxima, chegou a hora de consumir");
 		}
-		this.notifyAll();
-	}
+		this.notifyAll();}
 	
 	
 		public synchronized  void takeMessage() {
@@ -54,11 +52,10 @@ A seguir temos o mÈtodo que chama a funÁ„o de recuperar uma mensagem do channel,
 		String taken = messages.get(0);
 		this.messages.remove(0);
 		System.out.println("Message consumed: " + taken);
-		this.notifyAll();
-	}
+		this.notifyAll();}
 	
-- Optou-se por criar um Canal a parte uma vez que torna o cÛdigo mais elegante, e re-us·vel, sem contar que atende a proposta da quest„o.
+- Optou-se por criar um Canal a parte uma vez que torna o c√≥digo mais elegante, e re-us√°vel, sem contar que atende a proposta da quest√£o.
 
-> Importante !! Nesta quest„o temos um detalhe importante, no que diz respeito a capacidade m·xima da estrutura que armazena as mensagens produzidas. Caso ocorra um estouro do limite estipulado na criaÁ„o do canal , uma exceÁ„o È lanÁada. Para fazer tal verificaÁ„o, nos trabalhamos dentro da funÁ„o putMessage() em Channel sinalizando que enquanto a estrtutura estiver cheia a thread deve dar um wait.
+> Importante !! Nesta quest√£o temos um detalhe importante, no que diz respeito a capacidade m√°xima da estrutura que armazena as mensagens produzidas. Caso ocorra um estouro do limite estipulado na cria√ß√£o do canal , uma exce√ß√£o √© lan√ßada. Para fazer tal verifica√ß√£o, nos trabalhamos dentro da fun√ß√£o putMessage() em Channel sinalizando que enquanto a estrtutura estiver cheia a thread deve dar um wait.
 
-> Importante 2 !! Optou-se por utilizar um Arraylist como estrutura de armazenamento, uma vez que È de f·cil manipulaÁ„o. E de f·cil acesso a elementos indexados, por exemplo "ler a primeira mensagem recebida" equivale a pegar o elemento no indice 0, e como ArrayList È uma estrutura din‚mica, logo em seguinda a cabeÁa passa a ser o prÛximo elemento.
+> Importante 2 !! Optou-se por utilizar um Arraylist como estrutura de armazenamento, uma vez que √© de f√°cil manipula√ß√£o. E de f√°cil acesso a elementos indexados, por exemplo "ler a primeira mensagem recebida" equivale a pegar o elemento no indice 0, e como ArrayList √© uma estrutura din√¢mica, logo em seguinda a cabe√ßa passa a ser o pr√≥ximo elemento.
