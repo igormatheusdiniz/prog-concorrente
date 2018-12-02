@@ -9,7 +9,7 @@ public class APIWeb {
 	private ArrayList<Server> servers;
 	
 	public APIWeb() {
-		this.channel = new Channel();
+		this.channel = new Channel(3);
 		servers = new ArrayList<Server>();
 	}
 	
@@ -30,22 +30,19 @@ public class APIWeb {
 	
 	public String reliableRequest() {
 		for (Server server : servers) {
-			server.setChannel(channel);
+			server.setChannel(this.channel);
+			Thread thread = new Thread(server);
+			thread.start();
 		}
+		String msg = this.channel.takeMessage();
+		System.out.println("Fisrt Server: " + msg);
+		return msg;
 		
-		synchronized (this.channel) {
-			while (this.channel.isEmpty()) {
-				try {
-					this.channel.wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			String msg = this.channel.getMessage();
-			System.out.println("Fisrt Server: " + msg);
-			this.channel.notifyAll();
-			return msg;
-		}
+	}
+
+	private void cancelServers() {
+
+		
 	}
 	
 }
