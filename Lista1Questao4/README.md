@@ -47,4 +47,4 @@ public void run() {
 ```
 
 
-Após a variável ser alterada um notifyAll é chamado para que a aço tenha efeito imediato.
+Após a variável ser alterada um notifyAll é chamado para que a ação tenha efeito imediato.
