@@ -41,5 +41,5 @@ A execução é desbloqueada após:
   
 Quando o desbloqueio acontecer é necessário saber qual foi a razão de tal desbloqueio.
 Se o canal ainda estiver vazio significa que foi o timeout.
-Em cado de Timeout é retornada e a execução interrompida e a API, que chamou takeMessage na função reliableRequest é liberada para repassar a informaço de TIMEOUT para o cliente.  
+Em cada de Timeout é retornada e a execução interrompida e a API, que chamou takeMessage na função reliableRequest é liberada para repassar a informação de TIMEOUT para o cliente.  
 
