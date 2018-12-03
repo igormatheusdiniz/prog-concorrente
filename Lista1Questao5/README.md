@@ -41,6 +41,8 @@ ExecutorService Server = Executors.newFixedThreadPool(SIZE);
 ```
 ## 4- Plots de resultados obtidos
 
+![Plot Comparação](https://github.com/igormatheusdiniz/prog-concorrente/blob/master/Lista1Questao5/image.png)
+
 1. Resultados de 10 execuções com 2 threads realizandos inputs
 
 Os dados que seguem abaixo são dados copiados da execução do programa:
@@ -197,8 +199,6 @@ Teste para a classe: class java.util.concurrent.ConcurrentHashMap
 A média de tempo desta execuçao foi de: 803 ms
 
 --------
-
-![Plot Comparação](https://github.com/igormatheusdiniz/prog-concorrente/blob/master/Lista1Questao5/image.png)
 
 # 5- Discussão dos resultados obtidos
 
