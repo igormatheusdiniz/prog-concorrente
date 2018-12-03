@@ -197,3 +197,7 @@ Teste para a classe: class java.util.concurrent.ConcurrentHashMap
 A média de tempo desta execuçao foi de: 803 ms
 
 --------
+
+# 5- Discussão dos resultados obtidos
+
+Podemos perceber que em todos os casos e em todos os cenários testados neste experimento, o ConcurrentHashMap possuiu um desempenho melhor. Isso era o esperado uma vez que ConcurrentHashMap bloque apenas uma parte dos dados que estão sendo atualizados, enquanto outra parte dos dados pode ser acessada por outros threads. Por outro lado synchronizedMap() bloquea todos os dados durante a atualização, e outras threads só poderão acessar os dados quando o bloqueio for liberado. Dessa forma podemos dizer que o SynchronizedMap pode ocasionar um efeito de contenção.
