@@ -1,3 +1,5 @@
+# Ideia
+
 Nesta questão temos um típico caso Produtor/Consumidor, além disto adotamos um canal em comum como meio de comunicação entre os dois lados. Desta forma temos:
 
 - Alguém que produzirá as mensagens e as colocará neste canal em comum, e enquanto o mesmo não estiver cheio poderá produzir mensagens e deposita-lás dentro deste canal;
