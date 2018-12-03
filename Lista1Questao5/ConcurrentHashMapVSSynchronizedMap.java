@@ -9,7 +9,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class ConcurrentHashMapVSSynchronizedMap {
-
+	
+	//Para testar com o numero de Treads desejado basta descommitar a linha correspondete a quantidade de threads
+	//public final static int SIZE = 2;
+	//public final static int SIZE = 5;
 	public final static int SIZE = 10;
 
 	public static Map<String, Integer> SynchronizedMap = null;
@@ -32,7 +35,7 @@ public class ConcurrentHashMapVSSynchronizedMap {
 		System.out.println("Teste para a classe: " + Threads.getClass());
 		long mediaFinal = 0;
 		//Repete o teste 5x para manter a confiaça e tirar a média ao final
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 
 			//variavel que armazena o tempo inicial de execucao, importante para poder recuperar o tempo total gasto
 			long tempoInicial = System.nanoTime();
@@ -66,6 +69,6 @@ public class ConcurrentHashMapVSSynchronizedMap {
 			mediaFinal += total;
 			System.out.println("500K de entradas adicionadas em " + total + " ms");
 		}
-		System.out.println("A média de tempo desta execuçao foi de: " + mediaFinal / 5 + " ms\n");
+		System.out.println("A média de tempo desta execuçao foi de: " + mediaFinal / 10 + " ms\n");
 	}
 }
