@@ -12,8 +12,8 @@ public class ConcurrentHashMapVSSynchronizedMap {
 	
 	//Para testar com o numero de Treads desejado basta descommitar a linha correspondete a quantidade de threads
 	//public final static int SIZE = 2;
-	//public final static int SIZE = 5;
-	public final static int SIZE = 10;
+	public final static int SIZE = 5;
+	//public final static int SIZE = 10;
 
 	public static Map<String, Integer> SynchronizedMap = null;
 	public static Map<String, Integer> ConcurrentHashMap = null;
