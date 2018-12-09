@@ -9,11 +9,22 @@ import (
 func main() {
 	kill_permision := make(chan int)
 	go bond_girl(kill_permision)
-	message := reliableRequest(kill_permision)
-	fmt.Printf("Primeiro a chegar (%s) \n", message)
+	ticker := time.Tick(500 * time.Millisecond)
+	loop:
+	for {
+        select {
+        case <-kill_permision:
+			fmt.Print("007 killed")
+            break loop;
+        case <-ticker:
+            message := reliableRequest()
+            fmt.Printf("Primeiro a chegar (%s) \n", message)
+        }
+    }
+	
 }
 
-func reliableRequest( kill_permision chan int ) string {
+func reliableRequest( ) string {
 	net_ch := make(chan string)
 	go server(net_ch, "mirror1.com")
 	go server(net_ch, "mirror2.br")
@@ -21,17 +32,16 @@ func reliableRequest( kill_permision chan int ) string {
 	message := ""
 	select {
 		case message = <- net_ch:
-		case <-time.After(10 * time.Second):
+		case <-time.After(3 * time.Second):
 			message = "Timeout"
-		case <-kill_permision:
-			message = "007 killed"
 	}
 	return message
 	
 }
 
 func server(net_chan chan string, name string) {
-	var ranN = rand.Intn(10)
+	rand.Seed(time.Now().UnixNano())
+	ranN := rand.Intn(5)
 	time.Sleep(time.Duration(ranN) * time.Second)
 	fmt.Printf("Produzindo (%s) \n", name)
 	net_chan <- name
@@ -39,7 +49,8 @@ func server(net_chan chan string, name string) {
 
 
 func bond_girl(kill_permision chan int) {
-	var ranN = rand.Intn(3)
+	rand.Seed(time.Now().UnixNano())
+	ranN := rand.Intn(5)+10
 	time.Sleep(time.Duration(ranN) * time.Second)
 	kill_permision <- -1 //JAMES, KILL!
 }
