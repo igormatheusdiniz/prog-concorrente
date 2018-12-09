@@ -1,4 +1,4 @@
-package Lista1Questao4;
+package Lista1.Lista1Questao4;
 
 import java.util.ArrayList;
 import java.util.List;

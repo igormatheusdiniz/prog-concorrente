@@ -1,4 +1,4 @@
-package Lista1Questao3;
+package Lista1.Lista1Questao3;
 
 public class Client {
 	

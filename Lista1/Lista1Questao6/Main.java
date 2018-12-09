@@ -1,4 +1,4 @@
-package Lista1Questao6;
+package Lista1.Lista1Questao6;
 
 public class Main {
 	

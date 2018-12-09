@@ -1,4 +1,4 @@
-package Lista1Questao5;
+package Lista1.Lista1Questao5;
 
 import java.util.Collections;
 import java.util.HashMap;

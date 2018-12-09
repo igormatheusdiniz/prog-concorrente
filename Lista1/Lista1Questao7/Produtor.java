@@ -1,4 +1,4 @@
-package Lista1Questao7;
+package Lista1.Lista1Questao7;
 
 import java.nio.charset.Charset;
 import java.util.Random;

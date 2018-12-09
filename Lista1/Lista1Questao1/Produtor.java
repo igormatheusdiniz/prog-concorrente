@@ -1,4 +1,4 @@
-package Lista1Questao1;
+package Lista1.Lista1Questao1;
 
 import java.util.Random;
 
