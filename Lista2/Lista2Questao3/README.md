@@ -4,20 +4,25 @@ A ideia principal segue o caminho das outras, entretanto temos algumas pespecifi
 
 # Funcionamento:
 
-## 1- O cliente(main) chama a função reliable request que está presente dentro da API e atribui a varáivel mensagem
-
+## 1- O cliente(main) cria o canal da kill, cria a goRoutine Kill, entra num loop para ficar executando idefinidamente as requisições dos sevidores, e CASE exista uma kill_permition há uma quebra da excução
  
 ```Go
-
- func main() {
-	message := reliableRequest()
-	fmt.Printf("Primeiro a chegar (%s) \n", message)
-}
+loop:
+	for {
+        select {
+        case <-kill_permision:
+			fmt.Print("007 killed")
+            break loop;
+        case <-ticker:
+            message := reliableRequest()
+            fmt.Printf("Primeiro a chegar (%s) \n", message)
+        }
+    }
 ```
 
-## 2- A função reliableRequest() cria o canal e as threads, da a direção de que as threads depositem sua url no canal.
+## 2- A função reliableRequest() cria o canal e as goRoutines, da a direção de que as goRoutines depositem sua url no canal.
 
-O método reliable request cria um canal e as threads, onde cada uma seria uma requisição. As threads são configuradas para utilizar o canal criado para troca de informações. Após a troca de informações é comunicado a hora do consumo e a mensagem é retornada.
+O método reliable request cria um canal e as goRoutines, onde cada uma seria uma requisição. As threads são configuradas para utilizar o canal criado para troca de informações. Após a troca de informações é comunicado a hora do consumo e a mensagem é retornada.
 Um ponto importante a ser ressaltado é que um timeout é definido inicialmente como 2 segundos, e diferente da questão anterior, se faz necessário o uso de SELECT, pois CASE ele consiga retornar a mensagem em menos de 2 segundos o andamento do programa ocorre segundo o esperado, entretanto se passar do CASE maior que 2 segundos deve ocorrer timeout
 
 ```Go
@@ -53,5 +58,20 @@ Para garantir a aleatoriedade e testar os timeouts, determinamos um tempo aleato
 	fmt.Printf("Produzindo (%s) \n", name)
 	net_chan <- name
 }
+```
 
-  ```
+## 4- A função bondGirl recebe o canal e analisa seu conteudo
+
+Um tempo aleatorio de sleep é determinado para a bondGirl, quando a mesma despertar uma mensagm é depositada no canal, mensagem tal que funcionará de permission para quebrar a execução do programa.
+
+```Go
+func bond_girl(kill_permision chan int) {
+	rand.Seed(time.Now().UnixNano())
+	ranN := rand.Intn(5)+10
+	time.Sleep(time.Duration(ranN) * time.Second)
+	kill_permision <- -1 //JAMES, KILL!
+}
+```
+
+
+
