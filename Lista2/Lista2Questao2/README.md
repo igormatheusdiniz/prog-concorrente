@@ -15,9 +15,9 @@ A questão pode ser solucionada utilizando a mesma ideia de canal da questão an
 }
 ```
 
-## 2- A função reliableRequest() cria o canal e as threads, da a direção de que as threads depositem sua url no canal.
+## 2- A função reliableRequest() cria o canal e as goRoutines, da a direção de que as goRoutines depositem sua url no canal.
 
-O método reliable request cria um canal e as threads, onde cada uma seria uma requisição. As threads são configuradas para utilizar o canal criado para troca de informações. Após a troca de informações é comunicado a hora do consumo e a mensagem é retornada.
+O método reliable request cria um canal e as goRoutines, onde cada uma seria uma requisição. São configuradas para utilizar o canal criado para troca de informações. Após a troca de informações é comunicado a hora do consumo e a mensagem é retornada.
 Um ponto importante a ser ressaltado é que um timeout é definido inicialmente como 2 segundos, e diferente da questão anterior, se faz necessário o uso de SELECT, pois CASE ele consiga retornar a mensagem em menos de 2 segundos o andamento do programa ocorre segundo o esperado, entretanto se passar do CASE maior que 2 segundos deve ocorrer timeout
 
 ```Go
