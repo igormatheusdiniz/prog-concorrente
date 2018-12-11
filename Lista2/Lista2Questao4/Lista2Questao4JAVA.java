@@ -19,38 +19,45 @@ public class Lista2Questao4JAVA {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-
-		list = new ArrayList<Integer>();
-		teste(list);
-
+		teste();
 	}
 
-	public static void teste(final List<Integer> Threads) throws InterruptedException {
-		for (int i = 0; i < 4; i++) {
 
-			ExecutorService Server = Executors.newFixedThreadPool(4);
-			Server.execute(new Runnable() {
-				@Override
-				public void run() {
+	public static void teste() throws InterruptedException {
+		for (int i = 1; i < 3000; i++) {
 
-					for (int i = 0; i < 500000; i++) {
-						// Integer number = (int) Math.ceil(Math.random() * 550000);
-						Threads.add(i);
+			ExecutorService Server = Executors.newFixedThreadPool(i);
+			for (int j = 0; j < i; j++) {
+				Server.execute(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							
+						}
+
 					}
-				}
-			});
-
-			Server.shutdown();
-			Server.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-
+				});
+			}
 			Runtime runtime = Runtime.getRuntime();
+			Server.shutdown();
+			try {
+			    if (!Server.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+			    	Server.shutdownNow();
+			    } 
+			} catch (InterruptedException e) {
+				Server.shutdownNow();
+			}
 
-			runtime.gc();
+			
 
 			long memory = runtime.totalMemory() - runtime.freeMemory();
 			System.out.println("====================================================");
+			System.out.println("Qte Threads:" + i);
 			System.out.println("Used memory is bytes: " + memory);
 			System.out.println("Used memory is megabytes: " + bytesToMegabytes(memory));
+			runtime.gc();
 		}
 		System.out.println("====================================================");
 	}
