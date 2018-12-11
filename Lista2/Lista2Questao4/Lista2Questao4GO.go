@@ -9,21 +9,20 @@ import (
 func main() {
     PrintMemUsage()
 
-    var overall [][]int
-    for i := 0; i<4; i++ {
-
-        a := make([]int, 0, 500000)
-        overall = append(overall, a)
-
-        PrintMemUsage()
-        time.Sleep(time.Second)
-    }
-
-    overall = nil
+    for i := 1; i<3000; i++ {
+		fmt.Print(i)
+		for j := 0; j<i; j++{
+			go function()
+		}
     PrintMemUsage()
+	runtime.GC()
+}
+}
 
-    runtime.GC()
-    PrintMemUsage()
+
+func function(){
+	time.Sleep(20 * time.Millisecond)
+
 }
 
 func PrintMemUsage() {
